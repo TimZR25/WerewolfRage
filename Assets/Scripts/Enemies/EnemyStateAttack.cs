@@ -8,14 +8,15 @@ public class EnemyStateAttack : IState
 {
     private NavMeshAgent _agent;
 
-    private float _attackTime = 5f;
+    private float _attackTime;
     private float _time;
 
     public UnityAction Attacked;
 
-    public EnemyStateAttack(NavMeshAgent agent)
+    public EnemyStateAttack(NavMeshAgent agent, float attackTime)
     {
         _agent = agent;
+        _attackTime = attackTime;
     }
 
     public void Enter()

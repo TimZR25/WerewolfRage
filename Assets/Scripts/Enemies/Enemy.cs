@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent (typeof(NavMeshAgent))]
+[RequireComponent (typeof(NavMeshAgent), typeof(BoxCollider2D))]
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private int _health = 10;
+    [SerializeField] private float _attackTime = 2f;
+
     [SerializeField] private Player _player;
 
     private NavMeshAgent _agent;
@@ -19,7 +22,7 @@ public class Enemy : MonoBehaviour
 
         _stateMachine = new StateMachine();
         _stateRun = new EnemyStateRun(_player, _agent);
-        _stateAttack = new EnemyStateAttack(_agent);
+        _stateAttack = new EnemyStateAttack(_agent, _attackTime);
 
         _stateAttack.Attacked += OnAttacked;
 
@@ -39,8 +42,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void ApplyDamage(int damage)
+    {
+        _health -= damage;
+        if (_health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnAttacked()
     {
         _stateMachine.ChangeState(_stateRun);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        _agent = GetComponent<NavMeshAgent>();
+
+        Gizmos.DrawWireSphere(transform.position, _agent.stoppingDistance);
     }
 }

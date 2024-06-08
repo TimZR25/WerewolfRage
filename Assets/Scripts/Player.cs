@@ -1,16 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _health;
+    [SerializeField] private int _maxHealth;
     [SerializeField] private int _speed;
+
+    private int _currentHealth;
 
     private SpriteRenderer _sr;
     private Rigidbody2D _rb;
+
+    public Action<float> HealthChanged;
+
     void Start()
     {
+        _currentHealth = _maxHealth;
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
     }
@@ -18,6 +25,31 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+    }
+
+    public void ApplyHeal(int health)
+    {
+        _currentHealth += health;
+        if (_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+        HealthChanged?.Invoke((float)_currentHealth / _maxHealth);
+    }
+
+    public void ApplyDamage(int damage)
+    {
+        _currentHealth -= damage;
+        HealthChanged?.Invoke((float)_currentHealth/_maxHealth);
+        if (_currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("онлеп");
     }
 
     private void Move()

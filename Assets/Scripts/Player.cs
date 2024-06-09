@@ -8,7 +8,20 @@ public class Player : MonoBehaviour
     [SerializeField] private int _maxHealth;
     [SerializeField] private int _speed;
 
+    [SerializeField] private AudioClip _wolfFormHurtAudioClip;
+    [SerializeField] private AudioClip _humanFormHurtAudioClip;
+    [SerializeField] private AudioClip _deadAudioClip;
+
+    private AudioSource _audioSource;
+
     private int _currentHealth;
+
+    private bool _wereWolfForm = false;
+    public bool WereWolfForm
+    {
+        get { return _wereWolfForm; }
+        set { _wereWolfForm = value; }
+    }
 
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody;
@@ -18,6 +31,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         _currentHealth = _maxHealth;
+
+        _audioSource = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -40,6 +55,11 @@ public class Player : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         _currentHealth -= damage;
+        if (_currentHealth > 0)
+        {
+            if (_wereWolfForm == true) _audioSource.PlayOneShot(_wolfFormHurtAudioClip);
+            if (_wereWolfForm == false) _audioSource.PlayOneShot(_humanFormHurtAudioClip);
+        }
         HealthChanged?.Invoke((float)_currentHealth/_maxHealth);
         if (_currentHealth <= 0)
         {

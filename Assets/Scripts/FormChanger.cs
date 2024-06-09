@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class FormChanger : MonoBehaviour
 {
@@ -15,10 +16,13 @@ public class FormChanger : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     
 
+    private Player _player;
+
     private void ChangeForm(TimeOfDay timeOfDay)
     {
         if (timeOfDay == TimeOfDay.Day)
         {
+            _player.WereWolfForm = false;
             _audioSource.PlayOneShot(_humanFormAudioClip);
             _playerSprite.sprite = _forms[0];
             _weapons[0].SetActive(true);
@@ -26,6 +30,7 @@ public class FormChanger : MonoBehaviour
         }
         if (timeOfDay == TimeOfDay.Night)
         {
+            _player.WereWolfForm = true;
             _audioSource.PlayOneShot(_wereWolfFormAudioClip);
             _playerSprite.sprite = _forms[1];
             _weapons[0].SetActive(false);
@@ -35,6 +40,7 @@ public class FormChanger : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _player = GetComponent<Player>();
         _timeCycle.TimeOfDayChanged += ChangeForm;
     }
 }

@@ -55,15 +55,15 @@ public class Player : MonoBehaviour
     private void Move()
     {
         float moveVertical = Input.GetAxis("Vertical");
-        float moveHorizontal= Input.GetAxis("Horizontal");
+        float moveHorizontal = Input.GetAxis("Horizontal");
         FlipRotation(moveHorizontal);
-        Vector3 movePos = new Vector3(moveHorizontal, moveVertical,0);
+        Vector3 movePos = new Vector3(moveHorizontal, moveVertical, 0);
         _rb.MovePosition(transform.position + movePos * _speed * Time.deltaTime);
     }
     public void PushAway(Vector2 pushFrom, float pushPower)
     {
-        pushFrom = (Vector2)transform.position - pushFrom;
-        _rb.AddForce((Vector2)transform.position + pushFrom * pushPower);
+        pushFrom -= (Vector2)transform.position;
+        _rb.AddForce(pushFrom.normalized * pushPower);
     }
 
     private void FlipRotation(float moveHorizontal)

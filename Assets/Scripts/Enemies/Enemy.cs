@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,8 +17,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _attackRadius;
     public float AttackRadius => _attackRadius;
 
-    [SerializeField] private Player _player;
-    public Player Player => _player;
+    private Player _player;
+    public Player Player
+    {
+        get { return _player; }
+        set { _player = value; }
+    }
 
     [SerializeField] private Transform _attackPoint;
     public Transform AttackPoint => _attackPoint;
@@ -34,6 +39,8 @@ public class Enemy : MonoBehaviour
 
     private EnemyStateRun _stateRun;
     private EnemyStateAttack _stateAttack;
+
+    public Action<Enemy> Dead;
 
     private void Start()
     {
@@ -88,6 +95,7 @@ public class Enemy : MonoBehaviour
         if (_health <= 0)
         {
             Die();
+            Dead?.Invoke(this);
         }
     }
 

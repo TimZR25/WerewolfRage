@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private Player _player;
 
+    private Rigidbody2D _rb;
+
     private NavMeshAgent _agent;
 
     private StateMachine _stateMachine;
@@ -19,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        _rb = GetComponent<Rigidbody2D>();
         _agent = GetComponent<NavMeshAgent>();
 
         _stateMachine = new StateMachine();
@@ -59,6 +62,12 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void PushAway(Vector2 pushFrom, float pushPower)
+    {
+        pushFrom -= (Vector2)transform.position;
+        _rb.AddForce(pushFrom.normalized * pushPower);
     }
 
     public void Die()

@@ -92,7 +92,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(BulletEffect());
         _bulletSpawner.localPosition += new Vector3(_shotLength / 2 - 0.5f, 0, 0);
 
-        _player.PushAway(_bulletSpawner.position, 1000);
+        _player.PushAway(_bulletSpawner.position, -1000);
 
         Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(_bulletSpawner.position, new Vector2(_shotLength, _shotWidth), transform.rotation.eulerAngles.z);
         _bulletSpawner.localPosition -= new Vector3(_shotLength / 2 - 0.5f, 0, 0);
@@ -102,6 +102,7 @@ public class Gun : MonoBehaviour
             if (collider.TryGetComponent(out Enemy enemy))
             {
                 enemy.ApplyDamage(_damage);
+                enemy.PushAway(transform.position, -50);
             }
         }      
     }

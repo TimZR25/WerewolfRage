@@ -11,8 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _damage;
     public int Damage => _damage;
 
-    [SerializeField] private float _attackTime = 2f;
-    public float AttackTime => _attackTime;
+    [SerializeField] private float _attackDelay = 2f;
+    public float AttackDelay => _attackDelay;
 
     [SerializeField] private float _attackRadius;
     public float AttackRadius => _attackRadius;
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
         _stateAttack.Attacked += OnAttacked;
 
         _stateMachine.Initialize(_stateRun);
-        _agent.SetDestination(new Vector2(_player.transform.position.x, _player.transform.position.y));
+        _agent.SetDestination(new Vector3(_player.transform.position.x, _player.transform.position.y, _player.transform.position.z));
     }
 
     private void Update()
@@ -64,9 +64,7 @@ public class Enemy : MonoBehaviour
 
         FlipToTarget(_player.transform.position);
 
-        Debug.Log(_attackPoint.localPosition.x + _attackRadius);
-
-        if (_agent.remainingDistance <= _attackPoint.localPosition.x + _attackRadius)
+        if (Vector3.Distance(transform.position, _player.transform.position) <= _attackPoint.localPosition.x + _attackRadius)
         {
             if (_stateMachine.CurrentState == _stateAttack)
                 return;

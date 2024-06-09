@@ -1,8 +1,5 @@
 using Assets.Scripts;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MeleeWeapon : MonoBehaviour
 {
@@ -38,10 +35,10 @@ public class MeleeWeapon : MonoBehaviour
     private void Update()
     {
         (transform.rotation, _sr.flipY) = weaponRotation.ChangeRotation(transform.position, transform.rotation, _offset);
-        
+
         if (Input.GetMouseButton(0) && Time.time >= _nextAttack)
         {
-            _nextAttack = Time.time + 1.0f/ _attackSpeed;
+            _nextAttack = Time.time + 1.0f / _attackSpeed;
             Attack();
         }
     }
@@ -53,7 +50,7 @@ public class MeleeWeapon : MonoBehaviour
         Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_attackPos.position, _radiusAttack);
         foreach (Collider2D collider2D in collider2Ds)
         {
-            if(collider2D.TryGetComponent(out Enemy enemy))
+            if (collider2D.TryGetComponent(out Enemy enemy))
             {
                 enemy.ApplyDamage(_damage);
                 if (enemy.Health == 0)

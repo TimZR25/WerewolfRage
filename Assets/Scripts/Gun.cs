@@ -1,9 +1,6 @@
 using Assets.Scripts;
-using NUnit.Framework.Internal;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -58,7 +55,7 @@ public class Gun : MonoBehaviour
             {
                 Reload();
                 return;
-            }          
+            }
             _nextFire = Time.time + 1.0f / _fireRate;
             Shoot();
         }
@@ -67,10 +64,10 @@ public class Gun : MonoBehaviour
 
     private void Reload()
     {
-        if (_currentAmmunitionInClips == _maxAmmunitionInClip) return;       
+        if (_currentAmmunitionInClips == _maxAmmunitionInClip) return;
         if (_currentAmmunitionInClips == 0)
         {
-            _audioSource.PlayOneShot(_reloadTwoAmmoAudioClip);            
+            _audioSource.PlayOneShot(_reloadTwoAmmoAudioClip);
             _nextFire = Time.time + _reloadTime;
         }
         if (_currentAmmunitionInClips == 1)
@@ -104,7 +101,7 @@ public class Gun : MonoBehaviour
                 enemy.ApplyDamage(_damage);
                 enemy.PushAway(transform.position, -10000);
             }
-        }      
+        }
     }
 
     private IEnumerator BulletEffect()

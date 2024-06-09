@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class FormChanger : MonoBehaviour
 {
@@ -14,7 +11,7 @@ public class FormChanger : MonoBehaviour
     [SerializeField] private AudioClip _wereWolfFormAudioClip;
     [SerializeField] private AudioClip _humanFormAudioClip;
     [SerializeField] private AudioSource _audioSource;
-    
+
 
     private Player _player;
 

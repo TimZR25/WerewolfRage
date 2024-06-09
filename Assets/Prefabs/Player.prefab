@@ -364,6 +364,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 10
   _speed: 5
+  _wolfFormHurtAudioClip: {fileID: 0}
+  _humanFormHurtAudioClip: {fileID: 0}
+  _deadAudioClip: {fileID: 0}
+  _timeCycle: {fileID: 0}
 --- !u!50 &4834164279147207229
 Rigidbody2D:
   serializedVersion: 4
@@ -571,7 +575,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.09599972, y: -0.12899995, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6193936951620277615}
@@ -620,7 +624,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -6914797651450124119, guid: 10f0098680d1c53449bcaaee655774dd, type: 3}
+  m_Sprite: {fileID: -6307867832196225853, guid: 014ceb408ec35a840b8e2881c930f0c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -649,6 +653,7 @@ MonoBehaviour:
   _radiusAttack: 1
   _damage: 5
   _attackSpeed: 1.5
+  _player: {fileID: 0}
   _attack: {fileID: 7483243298576949764, guid: 22e0a54e77b488449baf937dda054d18, type: 3}
 --- !u!82 &5485102050510459837
 AudioSource:

@@ -25476,6 +25476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasDead
       objectReference: {fileID: 0}
+    - target: {fileID: 8701943457363158229, guid: c6a5687a9245c34498971996741f2be8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

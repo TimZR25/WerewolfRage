@@ -400,7 +400,6 @@ MonoBehaviour:
   _damage: 3
   _attackTime: 2
   _attackRadius: 1
-  _player: {fileID: 6355490093483338885, guid: 817a8bda73fb49e43a0829f6a92ca5fb, type: 3}
   _attackPoint: {fileID: 7033304846554298164}
 --- !u!61 &5702767214591175974
 BoxCollider2D:
@@ -482,7 +481,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 0

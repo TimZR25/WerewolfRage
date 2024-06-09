@@ -2,6 +2,7 @@ using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MeleeWeapon : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class MeleeWeapon : MonoBehaviour
     [SerializeField] private Transform _attackPos;
     [SerializeField] private float _radiusAttack = 1.5f;
     [SerializeField] private int _damage = 5;
-    [SerializeField] private float _attackSpeed = 2f;   
+    [SerializeField] private float _attackSpeed = 2f;
+
+    [SerializeField] private Player _player;
 
 
     [SerializeField] private GameObject _attack;
@@ -53,6 +56,10 @@ public class MeleeWeapon : MonoBehaviour
             if(collider2D.TryGetComponent(out Enemy enemy))
             {
                 enemy.ApplyDamage(_damage);
+                if (enemy.Health == 0)
+                {
+                    _player.ApplyHeal(1);
+                }
             }
         }
     }

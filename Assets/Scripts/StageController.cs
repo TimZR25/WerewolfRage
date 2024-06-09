@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageController : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class StageController : MonoBehaviour
         }
         _stageStarted = true;
         _currentStage += 1;
+        if(_currentStage == 6)
+        {
+            SceneManager.LoadScene("FinalScene");
+        }
         _player.transform.position = _stagePlayerSpawner[_currentStage - 1].position;
         _stageSpawners[_currentStage - 1].SetActive(true);
     }

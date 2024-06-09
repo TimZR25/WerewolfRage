@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: e4f88e74ba4ceb84ca45155299d4fe41
+guid: 014ceb408ec35a840b8e2881c930f0c5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5316274808419122336
-    second: S_UI 1_0
+      213: -6307867832196225853
+    second: S_Weapons_0
   - first:
-      213: 8546434157229742058
-    second: S_UI 1_1
+      213: -3843477611177798076
+    second: S_Weapons_1
   - first:
-      213: 2807151441802740741
-    second: S_UI 1_2
+      213: -5943036174294252821
+    second: S_Weapons_2
   - first:
-      213: -4608786523485713627
-    second: S_UI 1_3
+      213: -6111368077731295187
+    second: S_Weapons_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -107,9 +107,9 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 256
-    resizeAlgorithm: 1
-    textureFormat: 4
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -120,9 +120,9 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 256
-    resizeAlgorithm: 1
-    textureFormat: 4
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -135,7 +135,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: S_UI_0
+      name: S_Weapons_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,41 +143,41 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 410b61f03876e1143ba2779ead3d1687
-      internalID: -965104366
+      spriteID: 3c4a4db80a3f578a0800000000000000
+      internalID: -6307867832196225853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_UI_1
+      name: S_Weapons_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 2
+        y: 0
         width: 16
-        height: 12
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 5, z: 3, w: 5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b319b43d1dd7e4e4d8af0d6bada96c58
-      internalID: 374500293
+      spriteID: 446949be97939aac0800000000000000
+      internalID: -3843477611177798076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_UI_2
+      name: S_Weapons_2
       rect:
         serializedVersion: 2
         x: 32
@@ -185,35 +185,35 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 98f6319222cb60c4b8943464b1a38637
-      internalID: -1191658757
+      spriteID: be205e74618168da0800000000000000
+      internalID: -5943036174294252821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_UI_3
+      name: S_Weapons_3
       rect:
         serializedVersion: 2
-        x: 50
-        y: 4
-        width: 12
-        height: 8
+        x: 48
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ea29066f8a0916541ac574823c46390f
-      internalID: -1046214056
+      spriteID: d201a2bdc1f003ba0800000000000000
+      internalID: -6111368077731295187
       vertices: []
       indices: 
       edges: []
@@ -221,7 +221,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: beb6e90138aa4c14dbd23909ac10941b
+    spriteID: 410f0937c815cba439ba9d758056cd10
     internalID: 0
     vertices: []
     indices: 
@@ -229,10 +229,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      S_UI_0: -965104366
-      S_UI_1: 374500293
-      S_UI_2: -1191658757
-      S_UI_3: -1046214056
+      S_Weapons_0: -6307867832196225853
+      S_Weapons_1: -3843477611177798076
+      S_Weapons_2: -5943036174294252821
+      S_Weapons_3: -6111368077731295187
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

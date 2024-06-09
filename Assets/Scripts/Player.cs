@@ -10,16 +10,16 @@ public class Player : MonoBehaviour
 
     private int _currentHealth;
 
-    private SpriteRenderer _sr;
-    private Rigidbody2D _rb;
+    private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D _rigidbody;
 
     public Action<float> HealthChanged;
 
     void Start()
     {
         _currentHealth = _maxHealth;
-        _rb = GetComponent<Rigidbody2D>();
-        _sr = GetComponent<SpriteRenderer>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -58,23 +58,24 @@ public class Player : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         FlipRotation(moveHorizontal);
         Vector3 movePos = new Vector3(moveHorizontal, moveVertical, 0);
-        _rb.MovePosition(transform.position + movePos * _speed * Time.deltaTime);
+        _rigidbody.MovePosition(transform.position + movePos * _speed * Time.deltaTime);
     }
+
     public void PushAway(Vector2 pushFrom, float pushPower)
     {
         pushFrom -= (Vector2)transform.position;
-        _rb.AddForce(pushFrom.normalized * pushPower);
+        _rigidbody.AddForce(pushFrom.normalized * pushPower);
     }
 
     private void FlipRotation(float moveHorizontal)
     {
         if (moveHorizontal < 0)
         {
-            _sr.flipX = true;
+            _spriteRenderer.flipX = true;
         }
         if (moveHorizontal > 0)
         {
-            _sr.flipX = false;
+            _spriteRenderer.flipX = false;
         }
     }
 }

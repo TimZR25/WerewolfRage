@@ -5,11 +5,13 @@ public class EnemyStateRun : IState
 {
     private Player _player;
     private NavMeshAgent _agent;
+    private Animator _animator;
 
-    public EnemyStateRun(Player player, NavMeshAgent navMeshAgent)
+    public EnemyStateRun(Enemy enemy)
     {
-        _player = player;
-        _agent = navMeshAgent;
+        _player = enemy.Player;
+        _agent = enemy.Agent;
+        _animator = enemy.Animator;
 
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
@@ -18,6 +20,7 @@ public class EnemyStateRun : IState
     public void Enter()
     {
         _agent.isStopped = false;
+        _animator.Play(Enemy.AnimationNames.Run);
     }
 
     public void Exit()

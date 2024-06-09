@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip _humanFormHurtAudioClip;
     [SerializeField] private AudioClip _deadAudioClip;
 
+    [SerializeField] private TimeCycle _timeCycle;
+
+    private Animator _animator;
+
     private AudioSource _audioSource;
 
     private int _currentHealth;
@@ -36,6 +40,8 @@ public class Player : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -75,6 +81,15 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
+        if (_timeCycle.TimeOfDay == TimeOfDay.Day)
+        {
+            _animator.Play("A_Human_Run");
+        }
+        else
+        {
+            _animator.Play("A_Wolf_Run");
+        }
+
         float moveVertical = Input.GetAxis("Vertical");
         float moveHorizontal = Input.GetAxis("Horizontal");
         FlipRotation(moveHorizontal);

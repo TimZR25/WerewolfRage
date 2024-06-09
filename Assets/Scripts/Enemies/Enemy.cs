@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health = 10;
+    public int Health => _health;
 
     [SerializeField] private int _damage;
     public int Damage => _damage;

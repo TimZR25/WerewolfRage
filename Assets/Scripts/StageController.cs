@@ -10,12 +10,11 @@ public class StageController : MonoBehaviour
     [SerializeField] private Transform[] _stagePlayerSpawner;
     private int _currentStage = 0;
     private List<Enemy> _enemies = new();
-    private bool _stageStarted;
+    private bool _stageStarted = false;
 
     public void AddEnemy(Enemy enemy)
     {
         enemy.Dead += RemoveEnemy;
-        _stageStarted = false;
         _enemies.Add(enemy);
     }
     public void RemoveEnemy(Enemy enemy)
@@ -32,14 +31,10 @@ public class StageController : MonoBehaviour
         {
             return;
         }
-        if(_enemies.Count == 0) 
-        {
-            _stageStarted = true;
-            _player.ApplyHeal(5);
-            _currentStage += 1;              
-            _player.transform.position = _stagePlayerSpawner[_currentStage - 1].position;
-            _stageSpawners[_currentStage - 1].SetActive(true);
-        }
+        _stageStarted = true;
+        _currentStage += 1;
+        _player.transform.position = _stagePlayerSpawner[_currentStage - 1].position;
+        _stageSpawners[_currentStage - 1].SetActive(true);
     }
 
 }

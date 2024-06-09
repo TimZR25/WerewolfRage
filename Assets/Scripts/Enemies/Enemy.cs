@@ -1,18 +1,34 @@
-using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent (typeof(NavMeshAgent), typeof(BoxCollider2D))]
+[RequireComponent (typeof(NavMeshAgent), typeof(BoxCollider2D), typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health = 10;
+
+    [SerializeField] private int _damage;
+    public int Damage => _damage;
+
     [SerializeField] private float _attackTime = 2f;
+    public float AttackTime => _attackTime;
+
+    [SerializeField] private float _attackRadius;
+    public float AttackRadius => _attackRadius;
 
     [SerializeField] private Player _player;
+    public Player Player => _player;
 
-    private Rigidbody2D _rb;
+    [SerializeField] private Transform _attackPoint;
+    public Transform AttackPoint => _attackPoint;
+
+    private Rigidbody2D _rigidbody;
 
     private NavMeshAgent _agent;
+    public NavMeshAgent Agent => _agent;
+
+    private Animator _animator;
+    public Animator Animator => _animator;
 
     private StateMachine _stateMachine;
 
@@ -21,37 +37,48 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
         _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
 
         _stateMachine = new StateMachine();
-        _stateRun = new EnemyStateRun(_player, _agent);
-        _stateAttack = new EnemyStateAttack(_agent, _attackTime);
+        _stateRun = new EnemyStateRun(this);
+        _stateAttack = new EnemyStateAttack(this);
 
         _stateAttack.Attacked += OnAttacked;
 
         _stateMachine.Initialize(_stateRun);
+        _agent.SetDestination(new Vector2(_player.transform.position.x, _player.transform.position.y));
     }
 
     private void Update()
     {
         _stateMachine.CurrentState.Update();
 
-        if (_player.transform.position.x - transform.position.x > 0)
-        {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
+        FlipToTarget(_player.transform.position);
 
-        if (Vector2.Distance(transform.position, _player.transform.position) <= _agent.stoppingDistance)
+        Debug.Log(_attackPoint.localPosition.x + _attackRadius);
+
+        if (_agent.remainingDistance <= _attackPoint.localPosition.x + _attackRadius)
         {
             if (_stateMachine.CurrentState == _stateAttack)
                 return;
 
             _stateMachine.ChangeState(_stateAttack);
+        }
+    }
+
+    private void FlipToTarget(Vector3 target)
+    {
+        if (target.x - transform.position.x > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), 
+                transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), 
+                transform.localScale.y, transform.localScale.z);
         }
     }
 
@@ -67,7 +94,7 @@ public class Enemy : MonoBehaviour
     public void PushAway(Vector2 pushFrom, float pushPower)
     {
         pushFrom -= (Vector2)transform.position;
-        _rb.AddForce(pushFrom.normalized * pushPower);
+        _rigidbody.AddForce(pushFrom.normalized * pushPower);
     }
 
     public void Die()
@@ -85,5 +112,14 @@ public class Enemy : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
 
         Gizmos.DrawWireSphere(transform.position, _agent.stoppingDistance);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
+    }
+
+    public class AnimationNames
+    {
+        public const string Run = "A_Enemy_Run";
+        public const string Attack = "A_Enemy_Attack";
     }
 }

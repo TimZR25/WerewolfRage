@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 3936330337754103260}
-  _player: {fileID: 0}
+  _player: {fileID: 5562497084869879755, guid: 1cdad19cdbff87b4b8d0473baa7d096e, type: 3}
 --- !u!1 &8850440985540560348
 GameObject:
   m_ObjectHideFlags: 0

@@ -102,7 +102,7 @@ public class Gun : MonoBehaviour
             if (collider.TryGetComponent(out Enemy enemy))
             {
                 enemy.ApplyDamage(_damage);
-                enemy.PushAway(transform.position, -50);
+                enemy.PushAway(transform.position, -100);
             }
         }      
     }

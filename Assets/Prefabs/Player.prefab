@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb23d6f1101a2d43aac2d2e044f9c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeCycle: {fileID: 0}
+  _timeCycle: {fileID: 1469970231275212973, guid: 8e9522972a91b3c48bba546700e2bfd6, type: 3}
   _weapons:
   - {fileID: 324771851540300440}
   - {fileID: 6031696502750589539}

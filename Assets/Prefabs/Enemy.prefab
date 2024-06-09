@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 10
   _attackTime: 2
-  _player: {fileID: 6355490093483338885, guid: 817a8bda73fb49e43a0829f6a92ca5fb, type: 3}
+  _player: {fileID: 5562497084869879755, guid: 1cdad19cdbff87b4b8d0473baa7d096e, type: 3}
 --- !u!61 &5702767214591175974
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 0

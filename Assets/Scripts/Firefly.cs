@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Firefly : MonoBehaviour
 {
+    [SerializeField] private NavMeshPath _navMeshPath;
     [SerializeField] private float _radius;
 
     private NavMeshAgent _agent;
@@ -17,22 +20,39 @@ public class Firefly : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
 
+        _navMeshPath = new NavMeshPath();
+
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
 
         _startPosition = transform.position;
 
-        _target = _startPosition + _radius * GetRandomDirection();
-        _agent.SetDestination(_target);
+        SetRandomTarget();
     }
 
     private void Update()
     {
-        if (_agent.remainingDistance <= _agent.stoppingDistance)
+        if (Vector3.Distance(transform.position, _target) <= 0.1f)
         {
-            _target = _startPosition + _radius * GetRandomDirection();
-            _agent.SetDestination(_target);
+            SetRandomTarget();
         }
+    }
+
+    private void SetRandomTarget()
+    {        
+        Vector3 randomPoint = Vector3.zero;
+        bool isCorrectPath = false;
+        while (isCorrectPath == false)
+        {
+            _target = _startPosition + GetRandomDirection();
+            NavMesh.SamplePosition(_target, out NavMeshHit hit, _radius, NavMesh.AllAreas);
+            randomPoint = hit.position;
+
+            _agent.CalculatePath(randomPoint, _navMeshPath);
+            if (_navMeshPath.status == NavMeshPathStatus.PathComplete) isCorrectPath = true;
+        }
+        _target = randomPoint;
+        _agent.SetDestination(_target);
     }
 
     private Vector3 GetRandomDirection()
@@ -43,6 +63,6 @@ public class Firefly : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, Vector3.one * _radius);
+        Gizmos.DrawWireCube(_startPosition, Vector3.one * _radius);
     }
 }

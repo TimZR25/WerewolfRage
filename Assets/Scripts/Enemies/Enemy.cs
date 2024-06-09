@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,6 +33,15 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         _stateMachine.CurrentState.Update();
+
+        if (_player.transform.position.x - transform.position.x > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
 
         if (Vector2.Distance(transform.position, _player.transform.position) <= _agent.stoppingDistance)
         {

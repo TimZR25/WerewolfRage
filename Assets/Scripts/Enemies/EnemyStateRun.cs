@@ -29,6 +29,7 @@ public class EnemyStateRun : IState
     {
         if (_agent.isStopped == false)
             _agent.SetDestination(new Vector2(_player.transform.position.x, _player.transform.position.y));
+
     }
 }
 

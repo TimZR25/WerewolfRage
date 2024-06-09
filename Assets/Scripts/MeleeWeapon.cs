@@ -46,7 +46,7 @@ public class MeleeWeapon : MonoBehaviour
     private void Attack()
     {
         _attackAudioSource.PlayOneShot(_attackClip);
-        StartCoroutine(AttackEffect());
+        AttackEffect();
         Collider2D[] collider2Ds = Physics2D.OverlapCircleAll(_attackPos.position, _radiusAttack);
         foreach (Collider2D collider2D in collider2Ds)
         {
@@ -57,10 +57,9 @@ public class MeleeWeapon : MonoBehaviour
         }
     }
 
-    IEnumerator AttackEffect()
+    private void AttackEffect()
     {
         GameObject attack = Instantiate(_attack, _attackPos.position, transform.rotation);
-        yield return new WaitForSeconds(0.2f);
-        Destroy(attack);
+        Destroy(attack, 0.2f);
     }
 }

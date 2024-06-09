@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,6 +7,11 @@ using UnityEngine.AI;
 [RequireComponent (typeof(NavMeshAgent), typeof(BoxCollider2D), typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private AudioClip _attackAudioClip;
+    [SerializeField] private AudioClip _hurtAudioClip;
+    [SerializeField] private AudioClip _deadAudioClip;
+    private AudioSource _audioSource;
+
     [SerializeField] private int _health = 10;
     public int Health => _health;
 
@@ -45,6 +51,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
@@ -69,7 +76,7 @@ public class Enemy : MonoBehaviour
         {
             if (_stateMachine.CurrentState == _stateAttack)
                 return;
-
+            _audioSource.PlayOneShot(_attackAudioClip);
             _stateMachine.ChangeState(_stateAttack);
         }
     }
@@ -91,9 +98,13 @@ public class Enemy : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         _health -= damage;
+        if (_health > 0)
+        {
+            _audioSource.PlayOneShot(_hurtAudioClip);
+        }
         if (_health <= 0)
         {
-            Die();
+            StartCoroutine(Die());
             Dead?.Invoke(this);
         }
     }
@@ -104,8 +115,10 @@ public class Enemy : MonoBehaviour
         _rigidbody.AddForce(pushFrom.normalized * pushPower);
     }
 
-    public void Die()
+    private IEnumerator Die()
     {
+        _audioSource.PlayOneShot(_deadAudioClip);
+        yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }
 

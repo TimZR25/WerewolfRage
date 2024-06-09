@@ -40,6 +40,7 @@ public class EnemyStateAttack : IState
             if (collider.TryGetComponent(out Player player))
             {
                 player.ApplyDamage(_damage);
+                player.PushAway(_attackPoint.transform.position, -1000);
             }
         }
     }

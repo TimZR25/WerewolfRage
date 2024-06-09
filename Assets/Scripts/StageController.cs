@@ -7,54 +7,38 @@ public class StageController : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private GameObject[] _stageSpawners;
-
     [SerializeField] private Transform[] _stagePlayerSpawner;
-    private int _stage = 1;
+    private int _currentStage = 0;
     private List<Enemy> _enemies = new();
-    private bool _start = true;
-
+    private bool _stageStarted;
 
     public void AddEnemy(Enemy enemy)
     {
-        _start = false;
-        Debug.Log(enemy);
+        enemy.Dead += RemoveEnemy;
+        _stageStarted = false;
         _enemies.Add(enemy);
-        Debug.Log(_enemies.Count);
     }
     public void RemoveEnemy(Enemy enemy)
     {
+        enemy.Dead -= RemoveEnemy;
         _enemies.Remove(enemy);
+        if(_enemies.Count == 0)
+            _stageStarted = false;
     }
 
     private void Update()
     {
-        if (_start == true)
+        if (_stageStarted)
         {
             return;
         }
         if(_enemies.Count == 0) 
-        { 
-            if ( _stage == 1)
-            {
-                _player.transform.position = _stagePlayerSpawner[0].position;
-                _stageSpawners[0].SetActive(true);
-            }
-            if (_stage == 2)
-            {
-                _player.transform.position = _stagePlayerSpawner[1].position;
-                _stageSpawners[1].SetActive(true);
-            }
-            if (_stage == 3)
-            {
-                _player.transform.position = _stagePlayerSpawner[2].position;
-                _stageSpawners[2].SetActive(true);
-            }
-            if (_stage == 4)
-            {
-                _player.transform.position = _stagePlayerSpawner[3].position;
-                _stageSpawners[3].SetActive(true);
-            }
-
+        {
+            _stageStarted = true;
+            _player.ApplyHeal(5);
+            _currentStage += 1;              
+            _player.transform.position = _stagePlayerSpawner[_currentStage - 1].position;
+            _stageSpawners[_currentStage - 1].SetActive(true);
         }
     }
 

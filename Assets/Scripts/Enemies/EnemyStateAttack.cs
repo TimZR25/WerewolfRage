@@ -8,8 +8,6 @@ using UnityEngine.Events;
 
 public class EnemyStateAttack : IState
 {
-    private NavMeshAgent _agent;
-
     private float _attackTime;
     private float _time;
 
@@ -23,8 +21,7 @@ public class EnemyStateAttack : IState
 
     public EnemyStateAttack(Enemy enemy)
     {
-        _agent = enemy.Agent;
-        _attackTime = enemy.AttackTime;
+        _attackTime = enemy.AttackDelay;
         _animator = enemy.Animator;
         _attackRadius = enemy.AttackRadius;
         _attackPoint = enemy.AttackPoint;
@@ -40,7 +37,6 @@ public class EnemyStateAttack : IState
 
         foreach (Collider2D collider in colliders)
         {
-            Debug.Log(collider);
             if (collider.TryGetComponent(out Player player))
             {
                 player.ApplyDamage(_damage);
@@ -50,7 +46,6 @@ public class EnemyStateAttack : IState
 
     public void Exit()
     {
-        _agent.isStopped = false;
     }
 
     public void Update()

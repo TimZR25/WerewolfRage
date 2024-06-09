@@ -19,20 +19,18 @@ public class EnemyStateRun : IState
 
     public void Enter()
     {
-        _agent.isStopped = false;
         _animator.Play(Enemy.AnimationNames.Run);
     }
 
     public void Exit()
     {
-        _agent.isStopped = true;
     }
 
     public void Update()
     {
-        if (_agent.isStopped == false)
-            _agent.SetDestination(new Vector2(_player.transform.position.x, _player.transform.position.y));
+        Vector3 target = new Vector3(_player.transform.position.x, _player.transform.position.y, _player.transform.position.z);
 
+        _agent.SetDestination(target);
     }
 }
 

@@ -16,7 +16,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if(Time.time >= _nextSpawn)
         {
-            Debug.Log(1);
             _nextSpawn = Time.time + _coolDown;
             _countEnemies -= 1;
             GameObject enemyGameObject = Instantiate(_enemy.gameObject, transform.position, Quaternion.identity);
